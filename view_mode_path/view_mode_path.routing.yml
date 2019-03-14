@@ -1,0 +1,9 @@
+view_mode_path.default:
+  path: '/view-mode-path/{nid}/{view_mode}'
+  defaults:
+    _controller: '\Drupal\view_mode_path\Controller\ViewModePathController::build'
+    _title_callback: '\Drupal\view_mode_path\Controller\ViewModePathController::getTitle'
+  requirements:
+    _permission: 'access content'
+    nid: \d+ #digit
+    view_mode: \w+ #word

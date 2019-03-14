@@ -1,0 +1,34 @@
+<?php
+
+/**
+  * Implements hook_theme().
+*/
+
+function view_mode_path_theme($existing, $type, $theme, $path) {
+  return [
+    'view_mode_path_thumbnail_modal' => [
+      'variables' => [
+        'item' => NULL,
+        'item_attributes' => NULL,
+        'url' => NULL,
+        'image_style' => NULL,
+        'attributes' => NULL
+      ]
+    ]
+  ];
+}
+
+/**
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - item: An ImageItem object.
+ *   - item_attributes: An optional associative array of html attributes to be
+ *     placed in the img tag.
+ *   - image_style: An optional image style.
+ *   - url: \Drupal\Core\Url object.
+ *   - attributes: go on anchor tag
+ */
+function template_preprocess_view_mode_path_thumbnail_modal(&$variables) {
+  template_preprocess_image_formatter($variables);
+}
