@@ -1,5 +1,8 @@
 <?php
 
+use Drupal\Core\Url;
+use Drupal\Core\Entity\EntityInterface;
+
 /**
   * Implements hook_theme().
 */
@@ -62,4 +65,18 @@ function template_preprocess_view_mode_path_thumbnail_modal(&$variables) {
   foreach (['width', 'height', 'alt'] as $key) {
     $variables['image']["#$key"] = $item->$key;
   }
+}
+
+function view_mode_path_get_url(EntityInterface $entity, $view_mode = 'default'){
+  if ($entity->getEntityTypeId() == 'node') {
+    $route = 'view_mode_path.node';
+  }
+  else if($entity->getEntityTypeId() == 'media') {
+    $route = 'view_mode_path.media';
+  }
+  else {
+    return NULL;
+  }
+  $url = Url::fromRoute($route, ['id' => $entity->id(), 'view_mode' => $view_mode]);
+  return $url;
 }

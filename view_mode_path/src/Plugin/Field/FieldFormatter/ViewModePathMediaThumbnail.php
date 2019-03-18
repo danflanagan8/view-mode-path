@@ -46,13 +46,7 @@ class ViewModePathMediaThumbnail extends MediaThumbnailFormatter {
         '#item_attributes' => [],
         '#image_style' => $this->getSetting('image_style'),
         '#url' => $this->getMediaThumbnailUrl($media, $items->getEntity()),
-        '#attributes' => [
-          'data-dialog-options' => '{"width":' . $this->getSetting('modal_width') . '}',
-          'data-dialog-type' => 'modal',
-          'class' => array(
-            'use-ajax',
-          ),
-        ],
+        '#attributes' => $this->getModalAttributes($media, $items->getEntity()),
       ];
 
       // Add cacheability of each item in the field.
@@ -84,6 +78,23 @@ class ViewModePathMediaThumbnail extends MediaThumbnailFormatter {
     }
 
     return $url;
+  }
+
+  public function getModalAttributes($media, $entity){
+
+    $image_link_setting = $this->getSetting('image_link');
+    // Check if the formatter involves a link.
+    $attributes = NULL;
+    if ($image_link_setting == 'content') {
+      if (!$entity->isNew()) {
+        $attributes = ViewModePathModalLinkTrait::getModalAttributes($entity, $this->getSettings());
+      }
+    }
+    elseif ($image_link_setting === 'media') {
+      $attributes = ViewModePathModalLinkTrait::getModalAttributes($media, $this->getSettings());
+    }
+
+    return $attributes;
   }
 
   public static function isApplicable(FieldDefinitionInterface $field_definition) {

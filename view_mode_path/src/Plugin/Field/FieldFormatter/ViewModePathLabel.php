@@ -36,13 +36,7 @@ class ViewModePathLabel extends EntityReferenceLabelFormatter {
         '#title' => $label,
         '#url' => $url,
         '#options' => [
-          'attributes' => [
-            'data-dialog-options' => '{"width":' . $this->getSetting('modal_width') . '}',
-            'data-dialog-type' => 'modal',
-            'class' => array(
-              'use-ajax',
-            ),
-          ],
+          'attributes' => ViewModePathModalLinkTrait::getModalAttributes($entity, $this->getSettings()),
         ],
       ];
 

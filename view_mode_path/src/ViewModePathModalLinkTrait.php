@@ -5,6 +5,7 @@ namespace Drupal\view_mode_path;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Utility\Html;
 
 trait ViewModePathModalLinkTrait {
 
@@ -24,6 +25,7 @@ trait ViewModePathModalLinkTrait {
     $options = parent::defaultSettings();
     $options['view_mode'] = 'default';
     $options['modal_width'] = '750';
+    $options['dialog_classes'] = '';
 
     return $options;
   }
@@ -48,6 +50,14 @@ trait ViewModePathModalLinkTrait {
       '#required' => TRUE,
     ];
 
+    $elements['dialog_classes'] = [
+      '#type' => 'textfield',
+      '#title' => t('Dialog Classes'),
+      '#default_value' => $this->getSetting('dialog_classes'),
+      '#description' => $this->t('Enter a space-separated list of custom classes to add to the dialog. This formatter always adds default classes like entity type and view mode.'),
+      '#required' => FALSE,
+    ];
+
     //so people know this formatter ALWAYS makes links
     if(isset($elements['image_link'])){
       $elements['image_link']['#required'] = TRUE;
@@ -63,22 +73,36 @@ trait ViewModePathModalLinkTrait {
   }
 
   public function getModalUrl($entity){
-    if ($entity->getEntityTypeId() == 'node') {
-      $route = 'view_mode_path.node';
-    }
-    else if($entity->getEntityTypeId() == 'media') {
-      $route = 'view_mode_path.media';
-    }
-    else {
-      return NULL;
-    }
-    $url = Url::fromRoute($route, ['id' => $entity->id(), 'view_mode' => $this->getSetting('view_mode')]);
-    return $url;
+    return view_mode_path_get_url($entity, $this->getSetting('view_mode'));
   }
 
   public function getViewModeOptions(){
     //for simplicity's sake, simply always return all view mode options for nodes and media.
     return array_merge(\Drupal::entityManager()->getViewModeOptions('node'), \Drupal::entityManager()->getViewModeOptions('media'));
+  }
+
+  public static function getModalAttributes($entity, $settings){
+    $classes = [
+      Html::cleanCssIdentifier($entity->getEntityTypeId()),
+      Html::cleanCssIdentifier($settings['view_mode']),
+      isset($settings['dialog_classes']) ? $settings['dialog_classes'] : '',
+    ];
+
+    $dialogClass = implode($classes, ' ');
+
+    $dialog_options = [
+      'width' => $settings['modal_width'],
+      'dialogClass' => $dialogClass,
+    ];
+
+    $attributes = array(
+      'data-dialog-options' => json_encode($dialog_options),
+      'data-dialog-type' => 'modal',
+      'class' => array(
+        'use-ajax',
+      ),
+    );
+    return $attributes;
   }
 
 }
