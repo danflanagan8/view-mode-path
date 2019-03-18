@@ -1,9 +1,19 @@
-view_mode_path.default:
-  path: '/view-mode-path/{nid}/{view_mode}'
+view_mode_path.node:
+  path: '/view-mode-path/node/{id}/{view_mode}'
   defaults:
-    _controller: '\Drupal\view_mode_path\Controller\ViewModePathController::build'
-    _title_callback: '\Drupal\view_mode_path\Controller\ViewModePathController::getTitle'
+    _controller: '\Drupal\view_mode_path\Controller\ViewModePathControllerNode::build'
+    _title_callback: '\Drupal\view_mode_path\Controller\ViewModePathControllerNode::getTitle'
   requirements:
     _permission: 'access content'
-    nid: \d+ #digit
+    id: \d+ #digit
+    view_mode: \w+ #word
+
+view_mode_path.media:
+  path: '/view-mode-path/media/{id}/{view_mode}'
+  defaults:
+    _controller: '\Drupal\view_mode_path\Controller\ViewModePathControllerMedia::build'
+    _title_callback: '\Drupal\view_mode_path\Controller\ViewModePathControllerMedia::getTitle'
+  requirements:
+    _permission: 'view media'
+    id: \d+ #digit
     view_mode: \w+ #word

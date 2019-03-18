@@ -9,10 +9,10 @@ use Drupal\node\Entity\Node;
  * Class ViewModePathController
  */
 
-class ViewModePathController extends ControllerBase {
+class ViewModePathControllerNode extends ControllerBase {
 
-  public function build($nid = NULL, $view_mode = 'default'){
-    if ($nid && $node = Node::load($nid)) {
+  public function build($id = NULL, $view_mode = 'default'){
+    if ($id && $node = Node::load($id)) {
       return \Drupal::entityTypeManager()->getViewBuilder('node')->view($node, $view_mode);
     }
     else {
@@ -20,9 +20,9 @@ class ViewModePathController extends ControllerBase {
     }
   }
 
-  public function getTitle($nid = NULL, $view_mode = 'default'){
-    if ($nid && $node = Node::load($nid)) {
-      return $node->getTitle();
+  public function getTitle($id = NULL, $view_mode = 'default'){
+    if ($id && $node = Node::load($id)) {
+      return $node->label();
     }
   }
 
