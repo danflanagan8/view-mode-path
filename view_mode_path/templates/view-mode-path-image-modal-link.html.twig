@@ -12,5 +12,8 @@
  * @ingroup themeable
  */
 #}
-
-<a href="{{ url }}" {{ attributes }}>{{ image }}</a>
+{% if url %}
+  <a href="{{ url }}" {{ attributes }}>{{ image }}</a>
+{% else %}
+  {{ image }}
+{% endif %}

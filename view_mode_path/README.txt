@@ -9,7 +9,7 @@ This module does two essential things to make view mode modals easy:
    See the routing yml for the gory details.
    You can get the url object for any entity by passing the entity to
    view_mode_path_get_url. You could use the routes in Twig templates by leveraging
-   path() of link().
+   path() or link().
 
 2. The module provides a suite of field formatter plugins that modify the existing
    "link to content" behavior to instead open the content in a modal.
@@ -17,3 +17,6 @@ This module does two essential things to make view mode modals easy:
    - Media reference fields can use the media thumbnail to open the field's node/media
      or the referenced media itself in a modal.
    - Entity Reference labels can open the referenced node/media in a modal.
+   - Image fields can open the content in a modal. The file itself cannot be opened
+     in a modal. That functionality could be added by giving file entities a route
+     and then editing view_mode_path_get_url.

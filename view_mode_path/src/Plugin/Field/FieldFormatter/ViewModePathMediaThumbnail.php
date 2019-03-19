@@ -41,7 +41,7 @@ class ViewModePathMediaThumbnail extends MediaThumbnailFormatter {
     /** @var \Drupal\media\MediaInterface[] $media_items */
     foreach ($media_items as $delta => $media) {
       $elements[$delta] = [
-        '#theme' => 'view_mode_path_thumbnail_modal',
+        '#theme' => 'view_mode_path_image_modal_link',
         '#item' => $media->get('thumbnail')->first(),
         '#item_attributes' => [],
         '#image_style' => $this->getSetting('image_style'),

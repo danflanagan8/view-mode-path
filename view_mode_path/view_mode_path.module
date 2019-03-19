@@ -9,7 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 
 function view_mode_path_theme($existing, $type, $theme, $path) {
   return [
-    'view_mode_path_thumbnail_modal' => [
+    'view_mode_path_image_modal_link' => [
       'variables' => [
         'item' => NULL,
         'item_attributes' => NULL,
@@ -34,7 +34,7 @@ function view_mode_path_theme($existing, $type, $theme, $path) {
  *   - url: \Drupal\Core\Url object.
  *   - attributes: go on anchor tag
  */
-function template_preprocess_view_mode_path_thumbnail_modal(&$variables) {
+function template_preprocess_view_mode_path_image_modal_link(&$variables) {
   if ($variables['image_style']) {
     $variables['image'] = [
       '#theme' => 'image_style',
