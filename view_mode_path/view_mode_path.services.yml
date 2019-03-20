@@ -1,0 +1,5 @@
+services:
+  view_mode_path.twig_extension:
+    class: Drupal\view_mode_path\TwigExtension
+    tags:
+      - { name: twig.extension }

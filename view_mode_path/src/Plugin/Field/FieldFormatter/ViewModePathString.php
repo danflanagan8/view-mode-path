@@ -32,7 +32,7 @@ class ViewModePathString extends StringFormatter {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     $entity = $items->getEntity();
-    $url = $this->getModalUrl($entity);
+    $url = ViewModePathModalLinkTrait::getModalUrl($entity, $this->getSetting('view_mode'));
     foreach ($items as $delta => $item) {
       $view_value = $this->viewValue($item);
       if ($url) {

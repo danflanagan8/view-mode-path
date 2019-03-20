@@ -30,7 +30,7 @@ class ViewModePathLabel extends EntityReferenceLabelFormatter {
 
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
       $label = $entity->label();
-      $url = $this->getModalUrl($entity);
+      $url = ViewModePathModalLinkTrait::getModalUrl($entity, $this->getSetting('view_mode'));
       $elements[$delta] = [
         '#type' => 'link',
         '#title' => $label,

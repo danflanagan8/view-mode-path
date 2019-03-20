@@ -72,8 +72,8 @@ trait ViewModePathModalLinkTrait {
     return $elements;
   }
 
-  public function getModalUrl($entity){
-    return view_mode_path_get_url($entity, $this->getSetting('view_mode'));
+  public static function getModalUrl($entity, $view_mode){
+    return view_mode_path_get_url($entity, $view_mode);
   }
 
   public function getViewModeOptions(){
@@ -84,6 +84,7 @@ trait ViewModePathModalLinkTrait {
   public static function getModalAttributes($entity, $settings){
     $classes = [
       Html::cleanCssIdentifier($entity->getEntityTypeId()),
+      Html::cleanCssIdentifier($entity->bundle()),
       Html::cleanCssIdentifier($settings['view_mode']),
       isset($settings['dialog_classes']) ? $settings['dialog_classes'] : '',
     ];

@@ -4,14 +4,17 @@ or media entity in a modal.
 It leverages existing Drupa/jquery infrastructure heavily. This article really
 helped us get started on this: https://befused.com/drupal/modal
 
-This module does two essential things to make view mode modals easy:
-1. The module exposes routes for any node or media entity in any view mode.
+This module does three essential things to make view mode modals easy:
+1. The module exposes ROUTES for any node or media entity in any view mode.
    See the routing yml for the gory details.
-   You can get the url object for any entity by passing the entity to
-   view_mode_path_get_url. You could use the routes in Twig templates by leveraging
-   path() or link().
+   - You can get the url object for any entity by passing the entity to
+   view_mode_path_get_url.
+   - You could use the routes in Twig templates by leveraging path().
+   For example you could do this:
 
-2. The module provides a suite of field formatter plugins that modify the existing
+   <a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;width&quot;: &quot;750&quot;, &quot;dialogClass&quot;: &quot;my-class&quot;}" href="{{ path('view_mode_path.node'), {'id': node.id, 'view_mode': 'teaser'})}}">My link that opens a teaser in a modal"</a>
+
+2. The module provides a suite of FIELD FORMATTER plugins that modify the existing
    "link to content" behavior to instead open the content in a modal.
    - String fields can open the fields node/media in a modal
    - Media reference fields can use the media thumbnail to open the field's node/media
@@ -20,3 +23,10 @@ This module does two essential things to make view mode modals easy:
    - Image fields can open the content in a modal. The file itself cannot be opened
      in a modal. That functionality could be added by giving file entities a route
      and then editing view_mode_path_get_url.
+
+3. The module provides a TWIG FUNCTION to easily create links that open entities
+   in modals in any view mode. The function is view_mode_path_modal_link_attributes.
+   It takes four params: entity, view_mode, modal width, classes for the anchor,
+   and classes for the modal.
+
+   <a {{ view_mode_path_modal_link_attributes(node, 'teaser', '750', 'my-anchor-class', 'my-modal-class') }}>Click it to open teaser in modal!</a>

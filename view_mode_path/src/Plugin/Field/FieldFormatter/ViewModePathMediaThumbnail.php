@@ -70,11 +70,11 @@ class ViewModePathMediaThumbnail extends MediaThumbnailFormatter {
     $url = NULL;
     if ($image_link_setting == 'content') {
       if (!$entity->isNew()) {
-        $url = $this->getModalUrl($entity);
+        $url = ViewModePathModalLinkTrait::getModalUrl($entity, $this->getSetting('view_mode'));
       }
     }
     elseif ($image_link_setting === 'media') {
-      $url = $this->getModalUrl($media);
+      $url = ViewModePathModalLinkTrait::getModalUrl($media, $this->getSetting('view_mode'));
     }
 
     return $url;

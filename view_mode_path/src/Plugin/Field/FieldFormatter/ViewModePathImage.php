@@ -62,11 +62,11 @@ class ViewModePathImage extends ImageFormatter {
       //get the url.
       if ($image_link_setting == 'content') {
         if (!$entity->isNew()) {
-          $url = $this->getModalUrl($entity);
+          $url = ViewModePathModalLinkTrait::getModalUrl($entity, $this->getSetting('view_mode'));
         }
       }
       elseif ($image_link_setting === 'file') {
-        $url = $this->getModalUrl($file);
+        $url = ViewModePathModalLinkTrait::getModalUrl($file, $this->getSetting('view_mode'));
       }
 
       $elements[$delta] = [
