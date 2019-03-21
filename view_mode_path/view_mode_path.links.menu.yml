@@ -1,0 +1,6 @@
+view_mode_path.config:
+  title: 'View Mode Path defaults'
+  description: 'Set default vlaues for the View Mode Path module.'
+  route_name: view_mode_path.config
+  parent: system.admin_config_content
+  weight: 10

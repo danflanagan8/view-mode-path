@@ -1,9 +1,10 @@
 <?php
 
-namespace Drupal\view_mode_path;
+namespace Drupal\view_mode_path\Twig;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Template\Attribute;
+use Drupal\view_mode_path\ViewModePathModalLinkTrait;
 
 class TwigExtension extends \Twig_Extension {
 
@@ -33,7 +34,7 @@ class TwigExtension extends \Twig_Extension {
   /**
    *
    */
-  public function modalLinkAttributes(EntityInterface $entity, string $view_mode = 'default', string $modal_width = '750', string $anchor_classes = NULL, string $dialog_classes = NULL) {
+  public function modalLinkAttributes(EntityInterface $entity, string $view_mode = NULL, string $modal_width = NULL, string $anchor_classes = NULL, string $dialog_classes = NULL) {
     $settings = [
       'view_mode' => $view_mode,
       'modal_width' => $modal_width,

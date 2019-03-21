@@ -17,3 +17,11 @@ view_mode_path.media:
     _permission: 'view media'
     id: \d+ #digit
     view_mode: \w+ #word
+
+view_mode_path.config:
+  path: '/admin/config/view-mode-path'
+  defaults:
+    _title: 'View Mode Path defaults'
+    _form: '\Drupal\view_mode_path\Form\ViewModePathDefaultsForm'
+  requirements:
+    _permission: 'administer site configuration'

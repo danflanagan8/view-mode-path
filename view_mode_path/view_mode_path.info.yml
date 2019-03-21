@@ -1,6 +1,6 @@
 name: View Mode Path
 type: module
-description: 'Creates routes to content at any view mode.'
+description: 'Creates routes to content at any view mode and nice ways to open them in modals.'
 package: content
 version: VERSION
 core: 8.x

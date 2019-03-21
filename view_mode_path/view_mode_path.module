@@ -67,7 +67,7 @@ function template_preprocess_view_mode_path_image_modal_link(&$variables) {
   }
 }
 
-function view_mode_path_get_url(EntityInterface $entity, $view_mode = 'default'){
+function view_mode_path_get_url(EntityInterface $entity, $view_mode = NULL){
   if ($entity->getEntityTypeId() == 'node') {
     $route = 'view_mode_path.node';
   }
@@ -76,6 +76,9 @@ function view_mode_path_get_url(EntityInterface $entity, $view_mode = 'default')
   }
   else {
     return NULL;
+  }
+  if (empty($view_mode)) {
+    $view_mode = \Drupal::config('view_mode_path.settings')->get('view_mode');
   }
   $url = Url::fromRoute($route, ['id' => $entity->id(), 'view_mode' => $view_mode]);
   return $url;

@@ -14,7 +14,14 @@ trait ViewModePathModalLinkTrait {
    */
   public function settingsSummary() {
     $summary = parent::settingsSummary();
-    $summary[] = 'Open as ' . $this->getSetting('view_mode') . ' in modal.';
+    $defaults = \Drupal::config('view_mode_path.settings');
+    if ($this->getSetting('view_mode')) {
+      $summary[] = 'Open as ' . $this->getSetting('view_mode') . ' in modal.';
+    }
+    else {
+      $summary[] = 'Open as ' . $defaults->get('view_mode') . ' in modal.';
+    }
+
     return $summary;
   }
 
@@ -23,8 +30,8 @@ trait ViewModePathModalLinkTrait {
    */
   public static function defaultSettings() {
     $options = parent::defaultSettings();
-    $options['view_mode'] = 'default';
-    $options['modal_width'] = '750';
+    $options['view_mode'] = '';
+    $options['modal_width'] = '';
     $options['dialog_classes'] = '';
 
     return $options;
@@ -39,15 +46,17 @@ trait ViewModePathModalLinkTrait {
       '#type' => 'select',
       '#options' => $this->getViewModeOptions(),
       '#title' => t('View mode'),
+      '#description' => t('If left blank, the value from view_mode_path.settings will be used.'),
       '#default_value' => $this->getSetting('view_mode'),
-      '#required' => TRUE,
+      '#required' => FALSE,
     ];
 
     $elements['modal_width'] = [
-      '#type' => 'number',
-      '#title' => t('Modal Width (px)'),
+      '#type' => 'textfield',
+      '#title' => t('Modal Width'),
+      '#description' => t('If left blank, the value from view_mode_path.settings will be used. Enter any value for a css width.'),
       '#default_value' => $this->getSetting('modal_width'),
-      '#required' => TRUE,
+      '#required' => FALSE,
     ];
 
     $elements['dialog_classes'] = [
@@ -72,7 +81,7 @@ trait ViewModePathModalLinkTrait {
     return $elements;
   }
 
-  public static function getModalUrl($entity, $view_mode){
+  public static function getModalUrl($entity, $view_mode = NULL){
     return view_mode_path_get_url($entity, $view_mode);
   }
 
@@ -81,13 +90,25 @@ trait ViewModePathModalLinkTrait {
     return array_merge(\Drupal::entityManager()->getViewModeOptions('node'), \Drupal::entityManager()->getViewModeOptions('media'));
   }
 
-  public static function getModalAttributes($entity, $settings){
+  public static function getModalAttributes($entity, array $settings){
+
+    $defaults = \Drupal::config('view_mode_path.settings');
+    if(empty($settings['view_mode'])){
+      $settings['view_mode'] = $defaults->get('view_mode');
+    }
+    if(empty($settings['modal_width'])){
+      $settings['modal_width'] = $defaults->get('modal_width');
+    }
+
     $classes = [
       Html::cleanCssIdentifier($entity->getEntityTypeId()),
       Html::cleanCssIdentifier($entity->bundle()),
       Html::cleanCssIdentifier($settings['view_mode']),
-      isset($settings['dialog_classes']) ? $settings['dialog_classes'] : '',
     ];
+
+    if ($settings['dialog_classes']) {
+      $classes[] = $settings['dialog_classes'];
+    }
 
     $dialogClass = implode($classes, ' ');
 

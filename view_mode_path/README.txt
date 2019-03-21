@@ -29,4 +29,8 @@ This module does three essential things to make view mode modals easy:
    It takes four params: entity, view_mode, modal width, classes for the anchor,
    and classes for the modal.
 
-   <a {{ view_mode_path_modal_link_attributes(node, 'teaser', '750', 'my-anchor-class', 'my-modal-class') }}>Click it to open teaser in modal!</a>
+   <a {{ view_mode_path_modal_link_attributes(node, 'teaser', '750', 'my-anchor-class', 'my-modal-class') }}>Open teaser in modal!</a>
+
+   The only required parameter is the entity. If other settings are set to NULL
+   or are left out entirely, the defaults from view_mode_path.settings will be
+   used (if they exist).
