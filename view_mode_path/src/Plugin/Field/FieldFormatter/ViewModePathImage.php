@@ -80,6 +80,11 @@ class ViewModePathImage extends ImageFormatter {
           'tags' => $cache_tags,
           'contexts' => $cache_contexts,
         ],
+        '#attached' => [
+          'library' => [
+            'view_mode_path/view-mode-path-modal-link',
+          ],
+        ],
       ];
     }
 

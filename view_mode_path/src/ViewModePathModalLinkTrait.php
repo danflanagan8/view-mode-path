@@ -122,7 +122,7 @@ trait ViewModePathModalLinkTrait {
       'data-dialog-options' => json_encode($dialog_options),
       'data-dialog-type' => 'modal',
       'class' => array(
-        'use-ajax',
+        'view-mode-path-modal-link',
       ),
     );
     return $attributes;

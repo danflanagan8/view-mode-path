@@ -47,6 +47,11 @@ class TwigExtension extends \Twig_Extension {
     if($anchor_classes){
       $attributes['class'][] = $anchor_classes;
     }
+    //attach a library just like in core's attach_library twig function
+    $template_attached = ['#attached' => ['library' => ['view_mode_path/view-mode-path-modal-link']]];
+    \Drupal::service('renderer')->render($template_attached);
+
+    //now return the main event
     return new Attribute($attributes);
   }
 

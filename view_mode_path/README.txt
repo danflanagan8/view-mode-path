@@ -10,7 +10,7 @@ This module does three essential things to make view mode modals easy:
    - You can get the url object for any entity by passing the entity to
    view_mode_path_get_url.
    - You could use the routes in Twig templates by leveraging path().
-   For example you could do this:
+   This module provides easier ways, but for example you could do this:
 
    <a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;width&quot;: &quot;750&quot;, &quot;dialogClass&quot;: &quot;my-class&quot;}" href="{{ path('view_mode_path.node'), {'id': node.id, 'view_mode': 'teaser'})}}">My link that opens a teaser in a modal"</a>
 
@@ -33,4 +33,6 @@ This module does three essential things to make view mode modals easy:
 
    The only required parameter is the entity. If other settings are set to NULL
    or are left out entirely, the defaults from view_mode_path.settings will be
-   used (if they exist).
+   used (if they exist). So it could be as simple as this:
+
+   <a {{ view_mode_path_modal_link_attributes(node) }}>Open default view mode in modal!</a>

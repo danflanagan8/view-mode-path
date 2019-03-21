@@ -47,6 +47,11 @@ class ViewModePathMediaThumbnail extends MediaThumbnailFormatter {
         '#image_style' => $this->getSetting('image_style'),
         '#url' => $this->getMediaThumbnailUrl($media, $items->getEntity()),
         '#attributes' => $this->getModalAttributes($media, $items->getEntity()),
+        '#attached' => [
+          'library' => [
+            'view_mode_path/view-mode-path-modal-link',
+          ],
+        ],
       ];
 
       // Add cacheability of each item in the field.

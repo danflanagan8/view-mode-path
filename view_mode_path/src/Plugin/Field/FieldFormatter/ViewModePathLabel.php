@@ -38,6 +38,11 @@ class ViewModePathLabel extends EntityReferenceLabelFormatter {
         '#options' => [
           'attributes' => ViewModePathModalLinkTrait::getModalAttributes($entity, $this->getSettings()),
         ],
+        '#attached' => [
+          'library' => [
+            'view_mode_path/view-mode-path-modal-link',
+          ],
+        ],
       ];
 
       $elements[$delta]['#cache']['tags'] = $entity->getCacheTags();

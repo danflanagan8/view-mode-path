@@ -43,6 +43,11 @@ class ViewModePathString extends StringFormatter {
           '#options' => [
             'attributes' => ViewModePathModalLinkTrait::getModalAttributes($entity, $this->getSettings()),
           ],
+          '#attached' => [
+            'library' => [
+              'view_mode_path/view-mode-path-modal-link',
+            ],
+          ],
         ];
       }
       else {
