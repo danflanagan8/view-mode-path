@@ -65,7 +65,7 @@ class ViewModePathMediaThumbnail extends MediaThumbnailFormatter {
    * {@inheritdoc}
    */
   protected function getMediaThumbnailUrl(MediaInterface $media, EntityInterface $entity) {
-    $image_link_setting = $this->getSetting('image_link');
+    $image_link_setting = !empty($this->getSetting('image_link')) ? $this->getSetting('image_link') : 'content';
     // Check if the formatter involves a link.
     $url = NULL;
     if ($image_link_setting == 'content') {
@@ -82,7 +82,7 @@ class ViewModePathMediaThumbnail extends MediaThumbnailFormatter {
 
   public function getModalAttributes($media, $entity){
 
-    $image_link_setting = $this->getSetting('image_link');
+    $image_link_setting = !empty($this->getSetting('image_link')) ? $this->getSetting('image_link') : 'content';
     // Check if the formatter involves a link.
     $attributes = NULL;
     if ($image_link_setting == 'content') {

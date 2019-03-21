@@ -37,7 +37,7 @@ class ViewModePathImage extends ImageFormatter {
     }
 
     $url = NULL;
-    $image_link_setting = $this->getSetting('image_link');
+    $image_link_setting = !empty($this->getSetting('image_link')) ? $this->getSetting('image_link') : 'content';
     $entity = $items->getEntity();
 
     $image_style_setting = $this->getSetting('image_style');
@@ -88,7 +88,7 @@ class ViewModePathImage extends ImageFormatter {
 
   public function getModalAttributes($file, $entity){
 
-    $image_link_setting = $this->getSetting('image_link');
+    $image_link_setting = !empty($this->getSetting('image_link')) ? $this->getSetting('image_link') : 'content';
     // Check if the formatter involves a link.
     $attributes = NULL;
     if ($image_link_setting == 'content') {
