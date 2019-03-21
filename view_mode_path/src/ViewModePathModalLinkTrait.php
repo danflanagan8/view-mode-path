@@ -44,6 +44,7 @@ trait ViewModePathModalLinkTrait {
     $elements = parent::settingsForm($form, $form_state);
     $elements['view_mode'] = [
       '#type' => 'select',
+      '#empty_option' => 'Use value from view_mode_path.settings',
       '#options' => $this->getViewModeOptions(),
       '#title' => t('View mode'),
       '#description' => t('If left blank, the value from view_mode_path.settings will be used.'),
