@@ -68,18 +68,23 @@ function template_preprocess_view_mode_path_image_modal_link(&$variables) {
 }
 
 function view_mode_path_get_url(EntityInterface $entity, $view_mode = NULL){
-  if ($entity->getEntityTypeId() == 'node') {
-    $route = 'view_mode_path.node';
-  }
-  else if($entity->getEntityTypeId() == 'media') {
-    $route = 'view_mode_path.media';
-  }
-  else {
+
+  //only node and media are supported.
+  $entity_type = $entity->getEntityTypeId();
+  if ($entity_type != 'node' && $entity_type != 'media') {
     return NULL;
   }
+
   if (empty($view_mode)) {
     $view_mode = \Drupal::config('view_mode_path.settings')->get('view_mode');
   }
-  $url = Url::fromRoute($route, ['id' => $entity->id(), 'view_mode' => $view_mode]);
-  return $url;
+
+  if ($view_mode == 'full') {
+    //If the view_mode is "full" we just return the canonical url
+    return Url::fromRoute("entity.$entity_type.canonical", [$entity_type => $entity->id()]);
+  }
+  else {
+    //Otherwise, we return the url exposed by view_mode_path.
+    return Url::fromRoute("view_mode_path.$entity_type", ['id' => $entity->id(), 'view_mode' => $view_mode]);
+  }
 }
