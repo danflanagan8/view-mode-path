@@ -109,7 +109,7 @@ class ViewModePathMediaThumbnail extends MediaThumbnailFormatter {
     // This formatter is only available for nodes and media.
     // Other entity types don't have modal routes from this module.
     $target_bundle = $field_definition->getFieldStorageDefinition()->getTargetEntityTypeId();
-    return $target_bundle == 'node' || $target_bundle == 'media';
+    return $target_bundle == 'node' || $target_bundle == 'media' || $target_bundle == 'paragraph';
   }
 
 
