@@ -102,8 +102,8 @@ trait ViewModePathModalLinkTrait {
     }
 
     $classes = [
-      Html::cleanCssIdentifier($entity->getEntityTypeId()),
-      Html::cleanCssIdentifier($entity->bundle()),
+      $entity ? Html::cleanCssIdentifier($entity->getEntityTypeId()) : 'no-entity',
+      $entity ? Html::cleanCssIdentifier($entity->bundle()) : 'no-bundle',
       Html::cleanCssIdentifier($settings['view_mode']),
     ];
 

@@ -36,3 +36,9 @@ This module does three essential things to make view mode modals easy:
    used (if they exist). So it could be as simple as this:
 
    <a {{ view_mode_path_modal_link_attributes(node) }}>Open default view mode in modal!</a>
+
+4. Bonus! This one's in here even though it doesn't have to do with view modes.
+   It just allows non-node and non-media routes to open easily in a modal using
+   the same default config set in this module.
+
+   <a {{ view_mode_path_modal_link_by_route_attributes('view.some_view.page_1', [], '75%', 'my-anchor-class', 'my-modal-class') }}>Open view in modal!</a>
